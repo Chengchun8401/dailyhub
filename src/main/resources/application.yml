@@ -1,0 +1,21 @@
+server:
+  port: 8898
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://106.54.183.43:3306/dailyhub?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: city@spring#
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: false
+  global-config:
+    db-config:
+      table-prefix: t_
+
+logging:
+  level:
+    com.city.dailyhub.dao.mapper: debug
