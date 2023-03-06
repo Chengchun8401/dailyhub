@@ -16,8 +16,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // 跨域配置
         registry.addMapping("/**")
-                .allowedOrigins("http://lizp.vip", "http://192.168.147.1")
+                .allowedOrigins("http://locahost", "http://lizp.vip")
                 .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedOriginPatterns("*")
                 .allowCredentials(true);
     }
 
@@ -26,6 +27,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // 添加拦截器
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/collect/login","/**/*.html","/**/*.css","/**/*.js","/collect/all");
+                .excludePathPatterns("/collect/login","/collect/all/**", "/collect/increase/**","/**/*.html","/**/*.css","/**/*.js");
     }
 }

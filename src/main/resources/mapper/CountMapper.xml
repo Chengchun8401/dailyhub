@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.city.dailyhub.dao.mapper.CountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.city.dailyhub.dao.entity.Count">
+        <id column="id" property="id" />
+        <result column="collectId" property="collectId" />
+        <result column="click" property="click" />
+        <result column="clickDate" property="clickDate" />
+    </resultMap>
+
+    <!--通用查询结果-->
+    <sql id="Base_Column_List">
+        id, collectId, click, clickDate
+    </sql>
+
+    <!-- 总点击量 -->
+    <select id="getTotalClick" resultType="Integer">
+        SELECT
+            SUM(c.click) AS total
+        FROM
+            t_count c
+    </select>
+
+    <!-- 七日总点击量 -->
+    <select id="getWeekClick" resultType="Integer">
+        SELECT
+            SUM(c.click) AS `week`
+        FROM
+            t_count c
+        WHERE
+            c.clickDate >= DATE_SUB(CURDATE(), INTERVAL 7 DAY);
+    </select>
+
+    <!-- 七日点击量 -->
+    <select id="getWeeklyClick" resultType="com.city.dailyhub.dao.entity.CountInfo">
+        SELECT
+            c.clickDate as `date`,
+            SUM(c.click) as click
+        FROM
+            t_count c
+        GROUP BY
+            c.clickDate
+        ORDER BY
+            clickDate DESC
+        LIMIT 7
+    </select>
+
+</mapper>

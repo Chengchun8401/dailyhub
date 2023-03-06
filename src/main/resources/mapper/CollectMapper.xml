@@ -8,26 +8,64 @@
         <result column="title" property="title" />
         <result column="icon" property="icon" />
         <result column="url" property="url" />
+        <result column="weight" property="weight" />
         <result column="description" property="description" />
         <result column="createDate" property="createDate" />
+        <result column="visible" property="visible" />
+    </resultMap>
+    
+    <resultMap id="CollectionInfo" type="com.city.dailyhub.dao.entity.Collect" extends="BaseResultMap">
+        <association property="count" javaType="com.city.dailyhub.dao.entity.Count">
+            <result column="click" property="click" />
+        </association>
     </resultMap>
 
     <!--通用查询结果-->
     <sql id="Base_Column_List">
-        id, title, icon, url, description, createDate
+        id, title, icon, url, description, createDate, weight, visible
     </sql>
 
+
+    <!-- 拉取书签分页 -->
     <select id="getAllCollect" resultMap="BaseResultMap">
         SELECT
             c.*
         FROM
             t_collect c
+        WHERE
+            c.visible = 1
         <if test="search_title!=null and ''!=search_title">
-            WHERE
+            AND
             c.title LIKE CONCAT('%',#{search_title},'%')
         </if>
         ORDER BY
+            c.weight DESC
+    </select>
+
+    <!-- 获取书签详细信息，以及总点击量 -->
+    <select id="getCollectionInfo" resultMap="CollectionInfo">
+        SELECT
+            c.*,
+            COALESCE(SUM(o.click), 0) as click
+        FROM
+            t_collect c LEFT JOIN t_count as o ON c.id = o.collectId
+        GROUP BY
             c.id
+        ORDER BY
+            click DESC
+    </select>
+
+    <select id="getCollectClick" resultType="com.city.dailyhub.vo.CollectClick">
+        SELECT
+            c.title,
+            COALESCE(SUM(o.click)) as click
+        FROM
+            t_collect as c LEFT JOIN t_count as o ON c.id = o.collectId
+        WHERE
+            click > 0
+        GROUP BY
+            c.id
+            LIMIT 8
     </select>
 
 </mapper>

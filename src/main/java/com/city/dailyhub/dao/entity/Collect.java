@@ -1,5 +1,6 @@
 package com.city.dailyhub.dao.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
@@ -16,7 +17,6 @@ public class Collect {
     /**
      * 标题
      */
-
     private String title;
 
     /**
@@ -30,6 +30,11 @@ public class Collect {
     private String url;
 
     /**
+     * 权重
+     */
+    private Integer weight;
+
+    /**
      * 描述
      */
     private String description;
@@ -38,5 +43,16 @@ public class Collect {
      * 创建日期
      */
     private LocalDate createDate;
+
+    /**
+     *  可见性
+     */
+    private Integer visible;
+
+    /**
+     * 点击量统计
+     */
+    @TableField(exist = false)
+    private Count count;
 
 }

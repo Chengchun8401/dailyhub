@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://106.54.183.43:3306/dailyhub?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/dailyhub?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
-    password: city@spring#
+    password: root
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*Mapper.xml

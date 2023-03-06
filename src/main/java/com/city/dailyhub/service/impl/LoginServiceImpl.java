@@ -30,6 +30,6 @@ public class LoginServiceImpl implements ILoginService {
             return Result.fail("账号密码错误",404);
         }
 
-        return Result.success("登录成功", tokenService.getToken(admin));
+        return Result.success("欢迎访问", tokenService.getToken(admin));
     }
 }

@@ -1,5 +1,7 @@
 package com.city.dailyhub.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.city.dailyhub.dao.entity.Collect;
 import com.city.dailyhub.service.ICollectService;
 import com.city.dailyhub.vo.PageParam;
@@ -16,17 +18,28 @@ public class CollectController {
     @Autowired
     private ICollectService collectService;
 
+
     @GetMapping("/all")
     public Result getCollections(PageParam pageParam){
         return collectService.getCollectionsByPage(pageParam);
     }
 
+    @GetMapping("/info")
+    public Result getCollectionInfo(PageParam pageParam){
+        return collectService.getCollectionInfo(pageParam);
+    }
+
+    @GetMapping("/pre")
+    public Result getCollectClick(){
+        return collectService.getCollectClick();
+    }
+
     @DeleteMapping("/{id}")
     public Result deleteCollection(@PathVariable Long id){
-        if(collectService.removeById(id)){
+        boolean update = collectService.update(new UpdateWrapper<Collect>().eq("id", id).set("visible", 0));
+        if(update){
             return Result.success("删除成功", null);
         }
-
         return Result.fail("删除失败",402);
     }
 
@@ -49,6 +62,11 @@ public class CollectController {
         }
 
         return Result.fail("添加失败",402);
+    }
+
+    @GetMapping("/increase/{id}")
+    public Result clickIncrease(@PathVariable Long id){
+        return collectService.clickIncrease(id);
     }
 
 }
