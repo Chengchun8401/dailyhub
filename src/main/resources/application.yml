@@ -7,6 +7,7 @@ spring:
     url: jdbc:mysql://localhost:3306/dailyhub?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
     password: root
+    
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*Mapper.xml

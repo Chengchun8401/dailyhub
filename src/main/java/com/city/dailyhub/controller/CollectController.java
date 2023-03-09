@@ -43,6 +43,15 @@ public class CollectController {
         return Result.fail("删除失败",402);
     }
 
+    @PutMapping("/{id}")
+    public Result changeCollection(@PathVariable Long id){
+        boolean update = collectService.update(new UpdateWrapper<Collect>().eq("id", id).set("visible", 1));
+        if(update){
+            return Result.success("修改成功", null);
+        }
+        return Result.fail("操作失败",402);
+    }
+
     @PutMapping("")
     public Result updateCollection(@RequestBody Collect collect){
         if(collectService.updateById(collect)){
