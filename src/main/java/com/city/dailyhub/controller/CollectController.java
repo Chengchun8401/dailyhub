@@ -1,7 +1,7 @@
 package com.city.dailyhub.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.city.dailyhub.common.cache.Cache;
 import com.city.dailyhub.dao.entity.Collect;
 import com.city.dailyhub.service.ICollectService;
 import com.city.dailyhub.vo.PageParam;
@@ -29,6 +29,7 @@ public class CollectController {
         return collectService.getCollectionInfo(pageParam);
     }
 
+    @Cache(name = "get_collect_click")
     @GetMapping("/pre")
     public Result getCollectClick(){
         return collectService.getCollectClick();

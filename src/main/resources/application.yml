@@ -7,7 +7,13 @@ spring:
     url: jdbc:mysql://localhost:3306/dailyhub?useSSL=false&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
     password: root
-    
+
+  redis:
+    host: localhost
+    port: 6379
+    password: root
+    connect-timeout: 5000
+
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/*Mapper.xml

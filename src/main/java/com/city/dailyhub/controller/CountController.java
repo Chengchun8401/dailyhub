@@ -1,5 +1,6 @@
 package com.city.dailyhub.controller;
 
+import com.city.dailyhub.common.cache.Cache;
 import com.city.dailyhub.service.ICountService;
 import com.city.dailyhub.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ public class CountController {
     private ICountService countService;
 
     @GetMapping("/info")
+    @Cache(name = "get_click_data")
     public Result getClickData(){
         return countService.getClickData();
     }

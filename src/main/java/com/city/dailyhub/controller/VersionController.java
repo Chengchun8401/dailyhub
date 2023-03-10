@@ -1,5 +1,6 @@
 package com.city.dailyhub.controller;
 
+import com.city.dailyhub.common.cache.Cache;
 import com.city.dailyhub.dao.entity.Version;
 import com.city.dailyhub.service.IVersionService;
 import com.city.dailyhub.vo.Result;
@@ -24,6 +25,7 @@ public class VersionController {
     private IVersionService versionService;
 
     @GetMapping("")
+    @Cache(expire = 60 * 60 * 1000, name = "get_version_info")
     public Result getVersionInfo(){
         List<Version> versions = versionService.list();
         return Result.success(null, versions);
